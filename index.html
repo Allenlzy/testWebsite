@@ -6,20 +6,8 @@
 </head>
 <body>
     <div id="fb-root"></div>
-    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
     <script>
-        window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '401274959179255',
-            cookie     : true,
-            xfbml      : true,
-            version    : 'v11.0'
-          });
-        //   FB.XFBML.parse();
-          FB.AppEvents.logPageView();
-      
-        };
-      
+        // Load the SDK asynchronously
         (function(d, s, id){
            var js, fjs = d.getElementsByTagName(s)[0];
            if (d.getElementById(id)) {return;}
@@ -27,16 +15,37 @@
            js.src = "https://connect.facebook.net/en_US/sdk.js";
            fjs.parentNode.insertBefore(js, fjs);
          }(document, 'script', 'facebook-jssdk'));
-        
+
+        // Initiate SDK after loading
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '401274959179255', // Replace this with your App ID
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v11.0'
+          });
+      
+          FB.AppEvents.logPageView();   
+        };
+
+        // Check the login status
         function checkLoginState() {
             FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
+                statusChangeCallback(response);
             });
         }
+
+        // Callback after receiving login status
+        function statusChangeCallback(response) {
+            console.log('Facebook login status:', response);
+            // Here you can check the user's session and handle it accordingly
+        }
       </script>
+      
       <fb:login-button 
         scope="public_profile,email"
         onlogin="checkLoginState();">
     </fb:login-button>
+
 </body>
 </html>
